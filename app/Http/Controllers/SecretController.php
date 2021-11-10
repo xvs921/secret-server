@@ -25,7 +25,6 @@ class SecretController extends Controller
      */
     public function createSecret()
     {
-        return request()->all();
         request()->validate([
             'secret' => 'required|max:150',
             'expiresDays' => 'required|max:10',
