@@ -22,7 +22,7 @@
     </head>
     <body class="antialiased">
         <h1>Find secret</h1>
-        <form method="GET" action="/v1/secrets">
+        <form method="GET" action="/v1/secret">
             @csrf
             <div class="form-group">
                 <label class="header" for="secret">Secret</label>
@@ -33,7 +33,7 @@
             </div>
         </form>
         <h1>Create secret</h1>
-        <form method="POST" action="/v1/secrets">
+        <form method="POST" action="/v1/secret">
             @csrf
             <div class="form-group">
                 <label class="header" for="secret">Secret</label>
