@@ -12,19 +12,26 @@ class SecretController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+	public function index() {
+		return view('secret.welcome', [
+			'title' => 'All Tasks',
+		]);
+	}
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createSecret()
     {
-        //
+        request()->validate([
+            'secret' => 'required|max:150',
+            'expiresDays' => 'required|max:10',
+        ]);
+
+        $secret = new Secret(request('secret'),request('expiresDays'));
+        $secret->save();
     }
 
     /**
@@ -44,9 +51,10 @@ class SecretController extends Controller
      * @param  \App\Models\Secret  $secret
      * @return \Illuminate\Http\Response
      */
-    public function show(Secret $secret)
+    public function getSecret(Secret $secret)
     {
-        //
+        $secret = Secret::where('secret', $secret)->first();
+        return $secret->toJson(JSON_PRETTY_PRINT);
     }
 
     /**

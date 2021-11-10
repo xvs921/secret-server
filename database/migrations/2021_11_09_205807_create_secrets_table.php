@@ -15,12 +15,11 @@ class CreateSecretsTable extends Migration
     {
         Schema::create('secrets', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('hash');
             $table->string('secretText');
             $table->dateTime('created_at', $createdAt = 0);
             $table->dateTime('created_at', $expiresAt = 0);
-            $table->integer('remainingViews');
+            $table->integer('remainingViews')->default(3);
         });
     }
 
