@@ -21,8 +21,8 @@
         </style>
     </head>
     <body class="antialiased">
-    <h1>Find secret</h1>
-        <form method="GET" action="/tasks">
+        <h1>Find secret</h1>
+        <form method="GET" action="/secrets">
             @csrf
             <div class="form-group">
                 <label class="header" for="secret">Secret</label>
@@ -30,6 +30,19 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Search secret</button>
+            </div>
+        </form>
+        <h1>Create secret</h1>
+        <form method="POST" action="/secrets">
+            @csrf
+            <div class="form-group">
+                <label class="header" for="secret">Secret</label>
+                <input class="form-control" name="secret" />
+                <label class="header" for="expiresDays">Expire after days</label>
+                <input class="form-control" name="expiresDays" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Add secret</button>
             </div>
         </form>
     </body>
