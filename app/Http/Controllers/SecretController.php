@@ -13,7 +13,7 @@ class SecretController extends Controller
      * @return \Illuminate\Http\Response
      */
 	public function index() {
-		return view('secret.welcome', [
+		return view('welcome', [
 			'title' => 'All Tasks',
 		]);
 	}
