@@ -22,7 +22,7 @@ class Secret extends Model
         $secretText = $paramSecretText;
         $hash = hash('sha256', $paramSecretText);
         $dtCreate = new DateTime();
-        $createdAt = $dt->format('Y-m-d\TH:i:s.u');
-        $dtExpire = $dt->add(new DateInterval('P'.$expireDays.'D'))->format('Y-m-d\TH:i:s.u');
+        $createdAt = $dtCreate->format('Y-m-d\TH:i:s.u');
+        $dtExpire = $dtCreate->add(new DateInterval('P'.$expireDays.'D'))->format('Y-m-d\TH:i:s.u');
     }
 }
