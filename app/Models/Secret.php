@@ -18,7 +18,7 @@ class Secret extends Model
 
     function __construct($paramSecretText, $expireDays) {
         $secretText = $paramSecretText;
-        $hash = hash($hashMethod, $paramSecretText);
+        $hash = hash('sha256', $paramSecretText);
         $dtCreate = new DateTime();
         $createdAt = $dt->format('Y-m-d\TH:i:s.u');
         $dtExpire = $dt->add(new DateInterval('P'.$expireDays.'D'))->format('Y-m-d\TH:i:s.u');
