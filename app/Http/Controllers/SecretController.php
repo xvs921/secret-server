@@ -19,7 +19,7 @@ class SecretController extends Controller
 	}
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,21 +32,11 @@ class SecretController extends Controller
 
         $secret = new Secret(request('secret'),request('expiresDays'));
         $secret->save();
+        return $secret->toJson(JSON_PRETTY_PRINT);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Display the specified item.
      *
      * @param  \App\Models\Secret  $secret
      * @return \Illuminate\Http\Response
@@ -55,39 +45,5 @@ class SecretController extends Controller
     {
         $secret = Secret::where('secret', $secret)->first();
         return $secret->toJson(JSON_PRETTY_PRINT);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Secret  $secret
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Secret $secret)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Secret  $secret
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Secret $secret)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Secret  $secret
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Secret $secret)
-    {
-        //
     }
 }
