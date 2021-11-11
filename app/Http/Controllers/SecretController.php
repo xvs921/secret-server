@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Secret;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SecretController extends Controller
 {
@@ -31,7 +32,13 @@ class SecretController extends Controller
         ]);
 
         $secret = new Secret(request('secret'),request('expiresDays'));
-        $secret->save();
+        $dbReq = DB::table('secrets')->insert([
+            'hash' => $secret->hash,
+            'secretText' => $secret->secretText,
+            'created_at' => $secret->createdAt,
+            'expires_at' => $secret->expiresAt,
+            'remainingViews' => $secret->remainingViews,
+        ]);
         return $secret->toJson(JSON_PRETTY_PRINT);
     }
 
