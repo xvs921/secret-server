@@ -61,10 +61,7 @@ class SecretController extends Controller
      */
     public function getSecret($secret)
     {
-        $secretObject = DB::table('secrets')
-            ->select('*')
-            ->where('secretText', '=', $secret)
-            ->get();
+        $secretObject = DB::table('secrets')->where('secretText', $secret)->first();
         echo 'Obj:'.$secretObject->hash;
     }
 }
