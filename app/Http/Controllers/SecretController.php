@@ -50,7 +50,6 @@ class SecretController extends Controller
      */
     public function secretFromForm()
     {
-        echo request('secret');
         return $this->getSecret(request('secret'));
     }
 
@@ -63,6 +62,6 @@ class SecretController extends Controller
     public function getSecret($secret)
     {
         $secretObject = DB::table('secrets')->where('secretText', $secret)->first();
-        echo 'Obj:'.$secretObject->hash;
+        echo 'Obj:'.$secretObject->toJson(JSON_PRETTY_PRINT);;
     }
 }
