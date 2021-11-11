@@ -39,7 +39,7 @@ class SecretController extends Controller
             'expires_at' => $secret->expiresAt,
             'remainingViews' => $secret->remainingViews,
         ]);
-        return $secret->toJson(JSON_PRETTY_PRINT);
+        echo $secret->toJson(JSON_PRETTY_PRINT);
     }
 
     /**
@@ -51,6 +51,6 @@ class SecretController extends Controller
     public function getSecret(Secret $secret)
     {
         $secret = Secret::where('secret', $secret)->first();
-        return $secret->toJson(JSON_PRETTY_PRINT);
+        echo $secret->toJson(JSON_PRETTY_PRINT);
     }
 }
