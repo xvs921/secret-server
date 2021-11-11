@@ -33,6 +33,6 @@ class Secret extends Model
         $this->secretText = $paramSecretText;
         $this->hash = hash('sha256', $paramSecretText);
         $this->createdAt = new DateTime();
-        //$this->expiresAt = $this->createdAt->add(new DateInterval('P'.$expireDays.'D'));
+        $this->expiresAt = $this->createdAt->add(new DateInterval('P'.$expireDays.'D'));
     }
 }
