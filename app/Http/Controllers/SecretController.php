@@ -50,7 +50,8 @@ class SecretController extends Controller
      */
     public function secretFromForm()
     {
-        redirect('/v1/secret/'.request('secret'));
+        echo request('secret');
+        return $this->getSecret(request('secret'));
     }
 
     /**
