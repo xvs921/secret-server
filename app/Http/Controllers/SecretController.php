@@ -48,9 +48,20 @@ class SecretController extends Controller
      * @param  \App\Models\Secret  $secret
      * @return \Illuminate\Http\Response
      */
+    public function secretFromForm(Secret $secret)
+    {
+        redirect('/v1/secret/'.$secret);
+    }
+
+    /**
+     * Display the specified item.
+     *
+     * @param  \App\Models\Secret  $secret
+     * @return \Illuminate\Http\Response
+     */
     public function getSecret(Secret $secret)
     {
         $secret = Secret::where('secret', $secret)->first();
-        echo $secret->toJson(JSON_PRETTY_PRINT);
+        echo $secret->hash;
     }
 }
