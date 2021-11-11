@@ -48,9 +48,9 @@ class SecretController extends Controller
      * @param  \App\Models\Secret  $secret
      * @return \Illuminate\Http\Response
      */
-    public function secretFromForm($secret)
+    public function secretFromForm()
     {
-        redirect('/v1/secret/'.$secret);
+        redirect('/v1/secret/'.request('secret'));
     }
 
     /**
