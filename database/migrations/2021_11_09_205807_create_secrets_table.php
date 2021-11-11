@@ -20,6 +20,7 @@ class CreateSecretsTable extends Migration
             $table->dateTime('created_at');
             $table->dateTime('expires_at');
             $table->integer('remainingViews')->default(3);
+            $table->dateTime('updated_at')->nullable();
         });
     }
 
