@@ -18,6 +18,7 @@ class CreateSecretsTable extends Migration
             $table->string('hash');
             $table->string('secretText');
             $table->dateTime('created_at');
+            $table->dateTime('updated_at');
             $table->dateTime('expires_at');
             $table->integer('remainingViews')->default(3);
         });
