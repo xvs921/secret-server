@@ -48,7 +48,7 @@ class SecretController extends Controller
      * @param  \App\Models\Secret  $secret
      * @return \Illuminate\Http\Response
      */
-    public function secretFromForm(Secret $secret)
+    public function secretFromForm($secret)
     {
         redirect('/v1/secret/'.$secret);
     }
@@ -59,7 +59,7 @@ class SecretController extends Controller
      * @param  \App\Models\Secret  $secret
      * @return \Illuminate\Http\Response
      */
-    public function getSecret(Secret $secret)
+    public function getSecret($secret)
     {
         $secret = Secret::where('secret', $secret)->first();
         echo $secret->hash;
