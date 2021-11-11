@@ -56,7 +56,7 @@ class SecretController extends Controller
     /**
      * Display the specified item.
      *
-     * @param  \App\Models\Secret  $secret
+     * @param  String  $secret
      * @return \Illuminate\Http\Response
      */
     public function getSecret($secret)
