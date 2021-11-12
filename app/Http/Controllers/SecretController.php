@@ -35,7 +35,7 @@ class SecretController extends Controller
         ]);
 
         $createdAt = new DateTime();
-        $expiresAt = $createdAt->add(new DateInterval('P'.$expireDays.'D'));
+        $expiresAt = $createdAt->add(new DateInterval('P'.request('expireDays').'D'));
 
         try {
             $newSecret = Secret::create([
