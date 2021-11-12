@@ -69,7 +69,7 @@ class SecretController extends Controller
      */
     public function getSecret($secret)
     {
-        $foundSecret = Secret::findSecret($hash);
+        $foundSecret = Secret::findSecret($secret);
 
     	if ($foundSecret) {
     		$foundSecret->decreaseViewCounter();
