@@ -40,6 +40,8 @@
                 <input class="form-control" name="secret" />
                 <label class="header" for="expiresDays">Expire after days</label>
                 <input class="form-control" name="expiresDays" />
+                <label class="header" for="remainingViews">Remaining Views</label>
+                <input class="form-control" name="remainingViews" />
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Add secret</button>

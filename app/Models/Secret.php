@@ -21,18 +21,21 @@ class Secret extends Model
 		'remainingViews',
 	];
 
-    public string $hash;
-    public string $secretText;
-    public DateTime $createdAt;
-    public DateTime $expiresAt;
-    public int $remainingViews = 3;
-    private string $hashMethod = 'sha256';
-    public int $expireDays = 1;
+    public static function findSecret($hash)
+    {
+        $dateNow = date('Y-m-d h:i:sa', strtotime('now'));
+        
+        return Secret::where('hash', $hash)
+        ->where('remainingViews', '>', 0)        
+        ->where('expiresAt', '>', $dateNow)
+        ->first();
+    }
 
-    function __construct($paramSecretText, $expireDays) {
-        $this->secretText = $paramSecretText;
-        $this->hash = hash('sha256', $paramSecretText);
-        $this->createdAt = new DateTime();
-        $this->expiresAt = $this->createdAt->add(new DateInterval('P'.$expireDays.'D'));
+    public function decreaseViewCounter()
+    {
+        if ($this->remainingViews > 0) {
+            $this->remainingViews--;
+            $this->save();
+        }
     }
 }

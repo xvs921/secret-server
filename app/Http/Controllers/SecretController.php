@@ -29,17 +29,25 @@ class SecretController extends Controller
         request()->validate([
             'secret' => 'required|max:150',
             'expiresDays' => 'required|max:10',
+            'remainingViews' => 'required|max:10',
         ]);
 
-        $secret = new Secret(request('secret'),request('expiresDays'));
-        $dbReq = DB::table('secrets')->insert([
-            'hash' => $secret->hash,
-            'secretText' => $secret->secretText,
-            'created_at' => $secret->createdAt,
-            'expires_at' => $secret->expiresAt,
-            'remainingViews' => $secret->remainingViews,
-        ]);
-        echo $secret->toJson(JSON_PRETTY_PRINT);
+        $createdAt = new DateTime();
+        $expiresAt = $createdAt->add(new DateInterval('P'.$expireDays.'D'));
+
+        try {
+            $newSecret = Secret::create([
+                'hash' 		 => hash('sha256', request('secret')),
+                'secretText' => request('secret'),
+                'created_at' => $createdAt,
+                'expires_at'	 => $expiresAt,
+                'remainingViews' => request('remainingViews'),
+            ]);
+        } catch (Throwable $e) {
+            return response()->preferredFormat(['message' => 'Error with create new secret'], 404);
+        }
+        return $this->getResponse(request(), $newSecret, 200);
+
     }
 
     /**
@@ -61,7 +69,28 @@ class SecretController extends Controller
      */
     public function getSecret($secret)
     {
-        $secretObject = DB::table('secrets')->where('secretText', $secret)->first();
-        echo 'Obj:'.$secretObject->toJson(JSON_PRETTY_PRINT);;
+        $foundSecret = Secret::findSecret($hash);
+
+    	if ($foundSecret) {
+    		$foundSecret->decreaseViewCounter();
+    		return $this->getResponse(request(), $foundSecret, 200);
+    	}
+
+    	return response()->preferredFormat(['message' => 'Secret Not Found'], 404);  
+    }
+
+    public function getResponse($request, $secret, $status)
+    {
+    	$response;
+        if(request()->header('accept') && request()->header('accept') == 'application/json'){
+            $response = response(new SecretResource($secret), $status);
+        }
+        else if(request()->header('accept') && request()->header('accept') == 'application/xml'){
+            $response = response()->preferredFormat($secret, $status, [], class_basename($secret));
+        }
+        else{
+            $response = new SecretResource($secret);
+        }
+		return $response;
     }
 }
