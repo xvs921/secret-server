@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use DateInterval;
+use Illuminate\Routing\ResponseFactory;
 
 class SecretController extends Controller
 {
