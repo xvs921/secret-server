@@ -23,8 +23,8 @@ class Secret extends Model
 
     public static function findSecret($hash)
     {
-        $dateNow = date('Y-m-d h:i:sa', strtotime('now'));
-        
+        $dateNow = new DateTime();
+
         return Secret::where('hash', $hash)
         ->where('remainingViews', '>', 0)        
         ->where('expiresAt', '>', $dateNow)
