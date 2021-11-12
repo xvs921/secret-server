@@ -35,8 +35,9 @@ class SecretController extends Controller
             'remainingViews' => 'required|max:10',
         ]);
 
+        $expire = request('expireDays');
         $createdAt = new DateTime();
-        $expiresAt = $createdAt->add(new DateInterval('P'.request('expireDays').'D'));
+        $expiresAt = $createdAt->add(new DateInterval('P'.$expire.'D'));
 
         try {
             $newSecret = Secret::create([
