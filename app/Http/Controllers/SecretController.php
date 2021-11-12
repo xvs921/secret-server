@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Secret;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\SecretResource;
 use DateTime;
 use DateInterval;
-use Illuminate\Routing\ResponseFactory;
 
 class SecretController extends Controller
 {
@@ -41,10 +41,10 @@ class SecretController extends Controller
 
         try {
             $newSecret = Secret::create([
-                'hash' 		 => hash('sha256', request('secret')),
+                'hash' => hash('sha256', request('secret')),
                 'secretText' => request('secret'),
                 'created_at' => $createdAt,
-                'expires_at'	 => $expiresAt,
+                'expires_at' => $expiresAt,
                 'remainingViews' => request('remainingViews'),
             ]);
         } catch (Throwable $e) {
