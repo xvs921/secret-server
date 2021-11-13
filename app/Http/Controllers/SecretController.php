@@ -58,7 +58,7 @@ class SecretController extends Controller
         } catch (Throwable $e) {
             return $this->getBadResponse(request(), 'Invalid input', 405);
         }
-        return $this->getResponse(request(), $this->getDataCollection($newSecret), 200);
+        return $this->getResponse(request(), $newSecret, 200);
 
     }
 
@@ -85,8 +85,7 @@ class SecretController extends Controller
 
     	if ($foundSecret) {
     		$foundSecret->decreaseViewCounter();
-            $data = $this->getDataCollection($foundSecret);
-    		return $this->getResponse(request($data), 200);
+    		return $this->getResponse(request(), $foundSecret, 200);
     	}
 
         return $this->getBadResponse(request(), 'Secret not found', 404);
@@ -120,16 +119,5 @@ class SecretController extends Controller
             $response = new SecretResource(['error' => $message]);
         }
 		return $response;
-    }
-
-    public function getDataCollection($secretObject)
-    {
-        return [
-            "hash" => $secretObject->hash,
-            "secretText" => $secretObject->secretText,
-            "createdAt" => $secretObject->created_at,
-            "expiresAt" => $secretObject->expires_at,
-            "remainingViews" => $secretObject->remainingViews
-        ];
     }
 }
