@@ -32,6 +32,9 @@
                 <button type="submit" class="btn btn-primary">Search secret</button>
             </div>
         </form>
+        @foreach($secrets as $s)
+            <h6>{{ $s->write() }}</h6>
+        @endforeach
         <h1>Create secret</h1>
         <form method="POST" action="/v1/secret">
             @csrf

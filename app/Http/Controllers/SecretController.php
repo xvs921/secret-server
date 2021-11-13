@@ -18,8 +18,9 @@ class SecretController extends Controller
      * @return \Illuminate\Http\Response
      */
 	public function index() {
+        $secrets = Secret::get();
 		return view('welcome', [
-			'title' => 'All Tasks',
+			'secrets' => $secrets,
 		]);
 	}
 
@@ -123,10 +124,10 @@ class SecretController extends Controller
     public function getDataCollection($secretObject)
     {
         return [
-            "hash" => '"'.$secretObject->hash.'"',
-            "secretText" => '"'.$secretObject->secretText.'"',
-            "createdAt" => '"'.$secretObject->created_at->format('Y-m-dTH:i:sZ').'"',
-            "expiresAt" => '"'.$secretObject->expires_at->format('Y-m-dTH:i:sZ').'"',
+            "hash" => $secretObject->hash,
+            "secretText" => $secretObject->secretText,
+            "createdAt" => $secretObject->created_at->format('Y-m-dTH:i:sZ'),
+            "expiresAt" => $secretObject->expires_at->format('Y-m-dTH:i:sZ'),
             "remainingViews" => $secretObject->remainingViews
         ];
     }
