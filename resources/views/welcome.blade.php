@@ -17,6 +17,10 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+                background: brown;
+            }
+            #form-control{
+                border: 1px solid black;
             }
         </style>
     </head>
