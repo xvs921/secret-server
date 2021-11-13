@@ -16,8 +16,8 @@ class Secret extends Model
     protected $fillable = [
 		'hash',
 		'secretText',
-		'createdAt',
-		'expiresAt',
+		'created_at',
+		'expires_at',
 		'remainingViews',
 	];
 
