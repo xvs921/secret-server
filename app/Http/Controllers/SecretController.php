@@ -94,8 +94,7 @@ class SecretController extends Controller
     {
     	$response;
         if($request->header('accept') && $request->header('accept') == 'application/json'){
-            $response = $secret.'----'.$secret->write($secret);
-            //response(new SecretResource($secret), $status);
+            $response = response(new SecretResource($secret), $status);
         }
         else if($request->header('accept') && $request->header('accept') == 'application/xml'){
             $response = response()->xml($secret);
