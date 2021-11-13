@@ -15,11 +15,11 @@ class SecretResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "hash" => $this->hash.'\n',
-            "secretText" => $this->secretText.'\n',
-            "createdAt" => $this->created_at.'\n',
-            "expiresAt" => $this->expires_at.'\n',
-            "remainingViews" => $this->remainingViews.'\n'
+            "hash" => $this->hash,
+            "secretText" => $this->secretText,
+            "createdAt" => $this->created_at,
+            "expiresAt" => $this->expires_at,
+            "remainingViews" => $this->remainingViews
         ];
     }
 }
