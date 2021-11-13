@@ -55,11 +55,10 @@ class SecretController extends Controller
                 'expires_at' => $expiresAt,
                 'remainingViews' => request('remainingViews'),
             ]);
+            return $this->getResponse(request(), $newSecret, 200);
         } catch (Throwable $e) {
             return $this->getBadResponse(request(), 'Invalid input', 405);
         }
-        return $this->getResponse(request(), $newSecret, 200);
-
     }
 
     /**
