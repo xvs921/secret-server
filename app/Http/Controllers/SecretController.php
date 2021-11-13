@@ -45,8 +45,6 @@ class SecretController extends Controller
         $createdAt = new DateTime();
         $expireTemp = $createdAt;
         $expiresAt = $expireTemp->add(new DateInterval('PT'.$expire.'M'));
-        $createdAt->setTimezone(new DateTimeZone('Europe/Budapest'));
-        $expiresAt->setTimezone(new DateTimeZone('Europe/Budapest'));
 
         try {
             $newSecret = Secret::create([
