@@ -28,6 +28,11 @@ class Secret extends Model
         "remainingViews: ".$secretObject->remainingViews."\n";
     }
 
+    public static function secretCheck($hash)
+    {
+        return $secretObject->secretText;
+    }
+
     public static function findSecret($hash)
     {
         $dateNow = new DateTime();
