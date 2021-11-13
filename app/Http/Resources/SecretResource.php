@@ -10,16 +10,16 @@ class SecretResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @return array
      */
     public function toArray($request)
     {
         return [
-            'hash'           => $this->hash,
-            'secretText'     => $this->secretText,
-            'createdAt'      => $this->created_at,
-            'expiresAt'      => $this->expires_at,
-            'remainingViews' => $this->remainingViews,
+            'hash'           => $request->hash,
+            'secretText'     => $request->secretText,
+            'createdAt'      => $request->created_at,
+            'expiresAt'      => $request->expires_at,
+            'remainingViews' => $request->remainingViews,
         ];
     }
 }
