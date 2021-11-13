@@ -85,7 +85,8 @@ class SecretController extends Controller
 
     	if ($foundSecret) {
     		$foundSecret->decreaseViewCounter();
-    		return $this->getResponse(request(), $this->getDataCollection($foundSecret), 200);
+            $data = $this->getDataCollection($foundSecret);
+    		return $this->getResponse(request($data), 200);
     	}
 
         return $this->getBadResponse(request(), 'Secret not found', 404);
