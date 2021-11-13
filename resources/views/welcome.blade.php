@@ -33,7 +33,7 @@
             </div>
         </form>
         @foreach($secrets as $s)
-            <h6>{{ $s->write() }}</h6>
+            <h6>{{ $s->write($s) }}</h6>
         @endforeach
         <h1>Create secret</h1>
         <form method="POST" action="/v1/secret">
