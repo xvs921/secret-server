@@ -43,8 +43,9 @@ class SecretController extends Controller
 
         $expire = request('expiresDays');
         $createdAt = new DateTime();
-        $expiresAt = new DateTime();
-        $expiresAt->add(new DateInterval('PT'.$expire.'M'))->format('Y-m-dTH:i:sZ');
+        $expires = new DateTime();
+        $expires->add(new DateInterval('PT'.$expire.'M'));
+        $expiresAt = new DateTime($expires);
 
         try {
             $newSecret = Secret::create([
