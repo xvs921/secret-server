@@ -125,8 +125,8 @@ class SecretController extends Controller
         return [
             "hash" => '"'.$secretObject->hash.'"',
             "secretText" => '"'.$secretObject->secretText.'"',
-            "createdAt" => '"'.$secretObject->created_at.'"',
-            "expiresAt" => '"'.$secretObject->expires_at.'"',
+            "createdAt" => '"'.$secretObject->created_at->format('Y-m-dTH:i:sZ').'"',
+            "expiresAt" => '"'.$secretObject->expires_at->format('Y-m-dTH:i:sZ').'"',
             "remainingViews" => $secretObject->remainingViews
         ];
     }
