@@ -78,9 +78,9 @@ class SecretController extends Controller
      * @param  String  $secret
      * @return \Illuminate\Http\Response
      */
-    public function getSecret($secret)
+    public function getSecret($secretString)
     {
-        $foundSecret = Secret::findSecret($secret);
+        $foundSecret = Secret::findSecret($secretString);
 
     	if ($foundSecret) {
     		$foundSecret->decreaseViewCounter();
@@ -94,7 +94,8 @@ class SecretController extends Controller
     {
     	$response;
         if($request->header('accept') && $request->header('accept') == 'application/json'){
-            $response = response(new SecretResource($secret), $status);
+            $response = $secret.'----'.$secret->write($secret);
+            //response(new SecretResource($secret), $status);
         }
         else if($request->header('accept') && $request->header('accept') == 'application/xml'){
             $response = response()->xml($secret);

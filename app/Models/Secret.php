@@ -34,7 +34,7 @@ class Secret extends Model
 
         return Secret::where('hash', $hash)
         ->where('remainingViews', '>', 0)        
-        ->where('expires_at', '>', $dateNow)
+        ->orWhere('expires_at', '>', $dateNow)
         ->first();
     }
 
