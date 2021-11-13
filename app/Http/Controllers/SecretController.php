@@ -81,12 +81,13 @@ class SecretController extends Controller
     {
         $foundSecret = Secret::findSecret($secretString);
 
-    	if ($foundSecret) {
+    	if (isset($foundSecret) && $foundSecret->secretText != null && $foundSecret->secretText != '') {
     		$foundSecret->decreaseViewCounter();
     		return $this->getResponse(request(), $foundSecret, 200);
     	}
-
-        return $this->getBadResponse(request(), 'Secret not found', 404);
+        else{
+            return $this->getBadResponse(request(), 'Secret not found', 404);
+        }
     }
 
     public function getResponse($request, $secret, $status)
