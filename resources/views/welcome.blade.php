@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label class="header" for="secret">Secret</label>
                 <input class="form-control" name="secret" />
-                <label class="header" for="expiresDays">Expire after days</label>
+                <label class="header" for="expiresDays">Expire after minutes</label>
                 <input class="form-control" name="expiresDays" />
                 <label class="header" for="remainingViews">Remaining Views</label>
                 <input class="form-control" name="remainingViews" />
