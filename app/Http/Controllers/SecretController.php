@@ -80,11 +80,16 @@ class SecretController extends Controller
     public function getSecret($secretString)
     {
         $foundSecret = Secret::findSecret($secretString);
-        $result = $foundSecret->secretCheck($foundSecret);
-    	if (isset($result)) {
-    		$foundSecret->decreaseViewCounter();
-    		return $this->getResponse(request(), $foundSecret, 200);
-    	}
+        if(isset($foundSecret)){
+            $result = $foundSecret->secretCheck($foundSecret);
+            if (isset($result)) {
+                $foundSecret->decreaseViewCounter();
+                return $this->getResponse(request(), $foundSecret, 200);
+            }
+            else{
+                return $this->getBadResponse(request(), 'Secret not found', 404);
+            }
+        }
         else{
             return $this->getBadResponse(request(), 'Secret not found', 404);
         }
