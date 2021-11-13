@@ -29,15 +29,21 @@ class SecretController extends Controller
      */
     public function createSecret()
     {
-        request()->validate([
-            'secret' => 'required|max:150',
-            'expiresDays' => 'required|max:10',
-            'remainingViews' => 'required|max:10',
-        ]);
+        try {
+            request()->validate([
+                'secret' => 'required|max:150',
+                'expiresDays' => 'required|max:10',
+                'remainingViews' => 'required|max:10',
+            ]);
+        } catch (Throwable $e) {
+            return $this->getBadResponse(request(), 'Invalid input', 405);
+        }
 
         $expire = request('expiresDays');
         $createdAt = new DateTime();
-        $expiresAt = $createdAt->add(new DateInterval('P'.$expire.'D'));
+        $createdAt->setTimezone(new DateTimeZone('Europe/Budapest'));
+        $expiresAt = $createdAt->add(new DateInterval('PT'.$expire.'M'));
+        $createdAt->setTimezone(new DateTimeZone('Europe/Budapest'));
 
         try {
             $newSecret = Secret::create([
@@ -48,9 +54,9 @@ class SecretController extends Controller
                 'remainingViews' => request('remainingViews'),
             ]);
         } catch (Throwable $e) {
-            return response()->preferredFormat(['message' => 'Error with create new secret'], 404);
+            return $this->getBadResponse(request(), 'Invalid input', 405);
         }
-        return $this->getResponse(request(), $newSecret, 200);
+        return $this->getResponse(request(), $this->getDataCollection($newSecret), 200);
 
     }
 
@@ -77,24 +83,50 @@ class SecretController extends Controller
 
     	if ($foundSecret) {
     		$foundSecret->decreaseViewCounter();
-    		return $this->getResponse(request(), $foundSecret, 200);
+    		return $this->getResponse(request(), $this->getDataCollection($foundSecret), 200);
     	}
 
-    	return response()->preferredFormat(['message' => 'Secret Not Found'], 404);  
+        return $this->getBadResponse(request(), 'Secret not found', 404);
     }
 
     public function getResponse($request, $secret, $status)
     {
     	$response;
-        if(request()->header('accept') && request()->header('accept') == 'application/json'){
+        if($request->header('accept') && $request->header('accept') == 'application/json'){
             $response = response(new SecretResource($secret), $status);
         }
-        else if(request()->header('accept') && request()->header('accept') == 'application/xml'){
-            $response = response()->preferredFormat($secret, $status, [], class_basename($secret));
+        else if($request->header('accept') && $request->header('accept') == 'application/xml'){
+            $response = response()->xml($secret);
         }
         else{
             $response = new SecretResource($secret);
         }
 		return $response;
+    }
+
+    public function getBadResponse($request, $message, $status)
+    {
+    	$response;
+        if($request->header('accept') && $request->header('accept') == 'application/json'){
+            $response = response(new SecretResource(['error' => $message]), $status);
+        }
+        else if($request->header('accept') && $request->header('accept') == 'application/xml'){
+            $response = response()->xml(['error' => $message]);
+        }
+        else{
+            $response = new SecretResource(['error' => $message]);
+        }
+		return $response;
+    }
+
+    public function getDataCollection($secretObject)
+    {
+        return [
+            "hash" => '"'.$secretObject->hash.'"',
+            "secretText" => '"'.$secretObject->secretText.'"',
+            "createdAt" => '"'.$secretObject->created_at.'"',
+            "expiresAt" => '"'.$secretObject->expires_at.'"',
+            "remainingViews" => $secretObject->remainingViews
+        ];
     }
 }
