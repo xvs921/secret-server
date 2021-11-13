@@ -21,11 +21,11 @@ class Secret extends Model
 		'remainingViews',
 	];
 
-    public static function write($hash)
+    public static function write($secretObject)
     {
-        return "secret: ".$this->secretText."\nhash: ".$this->hash."\n".
-        "created_at: ".$this->created_at."\nexpires_at: ".$this->expires_at."\n".
-        "remainingViews: ".$this->remainingViews."\n";
+        return "secret: ".$secretObject->secretText."\nhash: ".$secretObject->hash."\n".
+        "created_at: ".$secretObject->created_at."\nexpires_at: ".$secretObject->expires_at."\n".
+        "remainingViews: ".$secretObject->remainingViews."\n";
     }
 
     public static function findSecret($hash)
