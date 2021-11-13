@@ -28,7 +28,7 @@ class Secret extends Model
         "remainingViews: ".$secretObject->remainingViews."\n";
     }
 
-    public static function secretCheck($hash)
+    public static function secretCheck($secretObject)
     {
         return $secretObject->secretText;
     }
