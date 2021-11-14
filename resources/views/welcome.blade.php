@@ -19,6 +19,8 @@
                 font-family: 'Nunito', sans-serif;
                 background: tomato;
                 color: white;
+                padding: 25px;
+                margin: 25px;
             }
             #form-control{
                 border: 1px solid black;
