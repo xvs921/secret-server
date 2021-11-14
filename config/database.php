@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 
+//CONNECTION DATA BLOCK
 $host = 'eu-cdbr-west-01.cleardb.com';
 $username = 'bff1b5401f0084';
 $password = '2b675dbf';

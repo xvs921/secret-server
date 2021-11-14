@@ -21,18 +21,36 @@ class Secret extends Model
 		'remainingViews',
 	];
 
+    /**
+     * Write a SecretObject as String
+     *
+     * @param \App\Models\Secret $secretObject
+     * @return String;
+     */
     public static function write($secretObject)
     {
-        return "secret: ".$secretObject->secretText."\nhash: ".$secretObject->hash."\n".
-        "created_at: ".$secretObject->created_at."\nexpires_at: ".$secretObject->expires_at."\n".
-        "remainingViews: ".$secretObject->remainingViews."\n";
+        return "secret: ".$secretObject->secretText." hash: ".$secretObject->hash." ".
+        "created_at: ".$secretObject->created_at." expires_at: ".$secretObject->expires_at." ".
+        "remainingViews: ".$secretObject->remainingViews;
     }
 
+    /**
+     * Check is available?
+     *
+     * @param \App\Models\Secret $secretObject
+     * @return String;
+     */
     public static function secretCheck($secretObject)
     {
         return $secretObject->secretText;
     }
 
+    /**
+     * Find a SecretObject with param hash
+     *
+     * @param String $hash
+     * @return \App\Models\Secret;
+     */
     public static function findSecret($hash)
     {
         $dateNow = new DateTime();
@@ -43,6 +61,10 @@ class Secret extends Model
         ->first();
     }
 
+    /**
+     * Decrease remaining counter
+     *
+     */
     public function decreaseViewCounter()
     {
         if ($this->remainingViews > 0) {

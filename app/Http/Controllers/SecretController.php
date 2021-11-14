@@ -13,7 +13,7 @@ use DateInterval;
 class SecretController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the secretObjects
      *
      * @return \Illuminate\Http\Response
      */
@@ -25,7 +25,7 @@ class SecretController extends Controller
 	}
 
     /**
-     * Create a new resource.
+     * Create a new secretObject
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,10 +61,8 @@ class SecretController extends Controller
     }
 
     /**
-     * Display the specified item.
+     * Display the specified secretObject.
      *
-     * @param  \App\Models\Secret  $secret
-     * @return \Illuminate\Http\Response
      */
     public function secretFromForm()
     {
@@ -72,7 +70,7 @@ class SecretController extends Controller
     }
 
     /**
-     * Display the specified item.
+     * Display the specified secretObject.
      *
      * @param  String  $secret
      * @return \Illuminate\Http\Response
@@ -95,6 +93,12 @@ class SecretController extends Controller
         }
     }
 
+    /**
+     * Response creator
+     *
+     * @param  String $request, \App\Models\Secret $secret, int $status
+     * @return array|\App\Http\Resources\SecretResource;
+     */
     public function getResponse($request, $secret, $status)
     {
     	$response;
@@ -110,6 +114,12 @@ class SecretController extends Controller
 		return $response;
     }
 
+    /**
+     * Bad response creator
+     *
+     * @param  String $request, \App\Models\Secret $secret, int $status
+     * @return array|\App\Http\Resources\SecretResource;
+     */
     public function getBadResponse($request, $message, $status)
     {
     	$response;
